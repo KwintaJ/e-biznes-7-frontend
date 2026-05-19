@@ -18,8 +18,11 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 
 	const fetchAllTasks = async () => {
 		try {
-			const res = await axios.get("http://localhost:3000/get-tasks")
-			setTasks(res.data)
+			const res = await axios({
+				method: 'get',
+				url: 'http://localhost:3000/get-tasks'
+			});
+			setTasks(res.data);
 		} catch (error) {
 			console.error(error)
 		}
