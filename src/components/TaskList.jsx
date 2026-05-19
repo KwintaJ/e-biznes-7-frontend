@@ -21,7 +21,9 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 
 	const toggleComplete = async (id) => {
 		try {
-			await axios.put(`http://localhost:3000/complete-task/${id}`)
+			const safeId = encodeURIComponent(id);
+			
+			await axios.put(`http://localhost:3000/complete-task/${safeId}`)
 			window.location.reload()
 		} catch (error) {
 			console.error(error)
@@ -30,7 +32,9 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 
 	const deleteTask = async (id) => {
 		try {
-			await axios.delete(`http://localhost:3000/delete-task/${id}`)
+			const safeId = encodeURIComponent(id);
+			
+			await axios.delete(`http://localhost:3000/delete-task/${safeId}`)
 			window.location.reload()
 		} catch (error) {
 			console.error(error)
