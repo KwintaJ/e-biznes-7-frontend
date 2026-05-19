@@ -10,6 +10,12 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 		fetchAllTasks()
 	}, [])
 
+	const validateId = (id) => {
+		if (id === undefined || id === null || isNaN(Number(id))) {
+			throw new Error("Nieprawidłowy identyfikator zadania");
+		}
+	};
+
 	const fetchAllTasks = async () => {
 		try {
 			const res = await axios.get("http://localhost:3000/get-tasks")
@@ -20,24 +26,26 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 	}
 
 	const toggleComplete = async (id) => {
+		const payload = { id: id };
+		
 		try {
-			const targetUrl = new URL(`/complete-task/${id}`, "http://localhost:3000");
-			
-			await axios.put(targetUrl.href);
+			validateId(payload.id);
+			await axios.put('http://localhost:3000/complete-task', payload);
 			window.location.reload();
 		} catch (error) {
-			console.error(error);
+			console.error("Błąd podczas zmiany statusu:", error.message);
 		}
 	}
 
 	const deleteTask = async (id) => {
+		const payload = { id: id };
+		
 		try {
-			const targetUrl = new URL(`/delete-task/${id}`, "http://localhost:3000");
-			
-			await axios.delete(targetUrl.href);
+			validateId(payload.id);
+			await axios.delete('http://localhost:3000/delete-task', { data: payload });
 			window.location.reload();
 		} catch (error) {
-			console.error(error);
+			console.error("Błąd podczas usuwania:", error.message);
 		}
 	}
 
