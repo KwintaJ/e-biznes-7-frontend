@@ -28,9 +28,12 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 
 	const handleUpdate = async () => {
 		try {
-			const targetUrl = new URL(`/update-task/${id}`, "http://localhost:3000");
-			
-			await axios.put(targetUrl.href, task);
+			await axios({
+				method: 'put',
+				url: '/update-task/' + id,
+				baseURL: 'http://localhost:3000',
+				data: task
+			});
 		} catch (error) {
 			console.error(error);
 		}
