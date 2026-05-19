@@ -24,10 +24,10 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 
 	const validateTaskData = (data) => {
 		if (typeof data.id !== 'number' && typeof data.id !== 'string') {
-			throw new Error("Nieprawidłowy ID zadania");
+			throw new TypeError("Nieprawidłowy ID zadania");
 		}
 		if (!data.name || data.name.trim() === "") {
-			throw new Error("Nazwa zadania nie może być pusta");
+			throw new TypeError("Nazwa zadania nie może być pusta");
 		}
 		return true;
 	};
