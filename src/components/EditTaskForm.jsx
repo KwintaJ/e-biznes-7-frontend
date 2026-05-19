@@ -27,17 +27,21 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 	}
 
 	const handleUpdate = async () => {
+		const allowedSchemes = ["http:", "https:"];
+		const allowedDomains = ["localhost"];
+
 		try {
-			await axios({
-				method: 'put',
-				url: '/update-task/' + id,
-				baseURL: 'http://localhost:3000',
-				data: task
-			});
+			const targetUrl = new URL('/update-task/' + id, 'http://localhost:3000');
+
+			if (allowedSchemes.includes(targetUrl.protocol) && allowedDomains.includes(targetUrl.hostname)) {
+				await axios.put(targetUrl.href, task);
+			} else {
+				console.error("error");
+			}
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	};
 
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
