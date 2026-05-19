@@ -11,7 +11,7 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 	}, [])
 
 	const validateId = (id) => {
-		if (id === undefined || id === null || isNaN(Number(id))) {
+		if (id === undefined || id === null || Number.isNaN(Number(id))) {
 			throw new Error("Nieprawidłowy identyfikator zadania");
 		}
 	};
@@ -34,7 +34,7 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 		try {
 			validateId(payload.id);
 			await axios.put('http://localhost:3000/complete-task', payload);
-			window.location.reload();
+			globalThis.location.reload();
 		} catch (error) {
 			console.error("Błąd podczas zmiany statusu:", error.message);
 		}
@@ -46,7 +46,7 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 		try {
 			validateId(payload.id);
 			await axios.delete('http://localhost:3000/delete-task', { data: payload });
-			window.location.reload();
+			globalThis.location.reload();
 		} catch (error) {
 			console.error("Błąd podczas usuwania:", error.message);
 		}

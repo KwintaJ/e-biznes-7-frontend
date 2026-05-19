@@ -60,7 +60,7 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 				<h2 className="text-xl font-bold mb-4">Update Task</h2>
 				<div className="space-y-4">
 					<div>
-						<label className="block text-sm font-medium text-gray-700">
+						<label htmlFor="taskName" className="block text-sm font-medium text-gray-700">
 							Task Name
 						</label>
 						<input
@@ -73,7 +73,7 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 						/>
 					</div>
 					<div>
-						<label className="block text-sm font-medium text-gray-700">
+						<label htmlFor="description" className="block text-sm font-medium text-gray-700">
 							Description
 						</label>
 						<textarea
