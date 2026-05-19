@@ -22,23 +22,35 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 		fetchTask()
 	}, [id])
 
+	const validateTaskData = (data) => {
+		if (typeof data.id !== 'number' && typeof data.id !== 'string') {
+			throw new Error("Nieprawidłowy ID zadania");
+		}
+		if (!data.name || data.name.trim() === "") {
+			throw new Error("Nazwa zadania nie może być pusta");
+		}
+		return true;
+	};
+
 	const handleChange = (e) => {
 		setTask((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 	}
 
 	const handleUpdate = async () => {
+		const payload = {
+			id: id,
+			name: task.name,
+			description: task.description
+		};
+
 		try {
-			const payload = {
-				id: id,
-				name: task.name,
-				description: task.description
-			};
+			validateTaskData(payload); 
 
 			await axios.put('http://localhost:3000/update-task', payload);
 			
 			alert("Zaktualizowano pomyślnie!");
 		} catch (error) {
-			console.error(error);
+			console.error("Błąd walidacji lub serwera:", error.message);
 		}
 	}
 
