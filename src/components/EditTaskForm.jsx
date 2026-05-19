@@ -28,11 +28,15 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 
 	const handleUpdate = async () => {
 		try {
-			const safeId = Number(id); 
+			const payload = {
+				id: id,
+				name: task.name,
+				description: task.description
+			};
 
-			await axios.put('http://localhost:3000/update-task', task, {
-				params: { id: safeId }
-			});
+			await axios.put('http://localhost:3000/update-task', payload);
+			
+			alert("Zaktualizowano pomyślnie!");
 		} catch (error) {
 			console.error(error);
 		}
