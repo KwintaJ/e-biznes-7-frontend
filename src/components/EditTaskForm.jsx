@@ -27,17 +27,14 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 	}
 
 	const handleUpdate = async () => {
-		const allowedSchemes = ["http:", "https:"];
-		const allowedDomains = ["localhost"];
-
 		try {
-			const targetUrl = new URL('/update-task/' + id, 'http://localhost:3000');
+			const config = {
+				method: 'put',
+				baseURL: 'http://localhost:3000',
+				url: ['/update-task', id].join('/')
+			};
 
-			if (allowedSchemes.includes(targetUrl.protocol) && allowedDomains.includes(targetUrl.hostname)) {
-				await axios.put(targetUrl.href, task);
-			} else {
-				console.error("error");
-			}
+			await axios(config, task);
 		} catch (error) {
 			console.error(error);
 		}
