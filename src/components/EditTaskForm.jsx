@@ -28,8 +28,10 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 
 	const handleUpdate = async () => {
 		try {
+			const safeId = Number(id); 
+
 			await axios.put('http://localhost:3000/update-task', task, {
-				params: { id: id }
+				params: { id: safeId }
 			});
 		} catch (error) {
 			console.error(error);
