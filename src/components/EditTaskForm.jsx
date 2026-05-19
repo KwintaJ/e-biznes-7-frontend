@@ -28,17 +28,13 @@ const AddTaskForm = ({ setShowEditTaskForm, id }) => {
 
 	const handleUpdate = async () => {
 		try {
-			const config = {
-				method: 'put',
-				baseURL: 'http://localhost:3000',
-				url: ['/update-task', id].join('/')
-			};
-
-			await axios(config, task);
+			await axios.put('http://localhost:3000/update-task', task, {
+				params: { id: id }
+			});
 		} catch (error) {
 			console.error(error);
 		}
-	};
+	}
 
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
