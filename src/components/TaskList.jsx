@@ -21,23 +21,23 @@ const TaskList = ({ setShowEditTaskForm, filter, setId }) => {
 
 	const toggleComplete = async (id) => {
 		try {
-			const safeId = encodeURIComponent(id);
+			const targetUrl = new URL(`/complete-task/${id}`, "http://localhost:3000");
 			
-			await axios.put(`http://localhost:3000/complete-task/${safeId}`)
-			window.location.reload()
+			await axios.put(targetUrl.href);
+			window.location.reload();
 		} catch (error) {
-			console.error(error)
+			console.error(error);
 		}
 	}
 
 	const deleteTask = async (id) => {
 		try {
-			const safeId = encodeURIComponent(id);
+			const targetUrl = new URL(`/delete-task/${id}`, "http://localhost:3000");
 			
-			await axios.delete(`http://localhost:3000/delete-task/${safeId}`)
-			window.location.reload()
+			await axios.delete(targetUrl.href);
+			window.location.reload();
 		} catch (error) {
-			console.error(error)
+			console.error(error);
 		}
 	}
 
